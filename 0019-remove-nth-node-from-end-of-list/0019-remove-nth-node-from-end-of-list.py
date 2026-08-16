@@ -1,25 +1,14 @@
 class Solution:
     def removeNthFromEnd(self, head, n):
-        curr = head
-        length = 0
-
-        # Find length
-        while curr is not None:
-            length += 1
-            curr = curr.next
-
-        # If removing the first node
-        if n == length:
+        slow=head
+        fast=head
+        for _ in range(n):
+            fast=fast.next
+        if fast==None:
             return head.next
+        while fast.next is not None:
+            slow=slow.next
+            fast=fast.next
 
-        # Move to node BEFORE the one to delete
-        curr = head
-        count=1
-        node =length -n
-        while count<node:
-            curr = curr.next
-            count+=1
-        # Delete next node
-        curr.next = curr.next.next
-
-        return head
+        slow.next=slow.next.next
+        return head        
